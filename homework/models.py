@@ -2,7 +2,7 @@ import torch
 
 
 class CNNClassifier(torch.nn.Module):
-    def __init__(self,layers=[], n_input_channels=3, kernel_size=3):
+    def __init__(self,layers=[32, 64, 128], n_input_channels=3, kernel_size=3):
         super(CNN, self).__init__()
         L = []
         c = n_input_channels
@@ -14,7 +14,7 @@ class CNNClassifier(torch.nn.Module):
         self.network = torch.nn.Sequential(*L)
 
     def forward(self, x):
-        return self.network(x).mean([1,2,3])
+        return self.network(x)
 
 
 def save_model(model):
