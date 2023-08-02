@@ -25,12 +25,12 @@ class CNNClassifier(torch.nn.Module):
             L.append(self.Block(c, l, stride=2))
             c = l 
         self.network = torch.nn.Sequential(*L)
-        self.classifier = torch.nn.Linear(c, n_classes)
+        self.classifier = torch.nn.Linear(c, l)
 
     def forward(self, x):
         z = self.network(x) # compute features
-        z = z.view(z.size(0), -1)
-        return self.classifier(z)
+        z = z.mean(dim=[1, 2,3]) #global average pooling
+        return self.classifier(z)[:,0]
 
 
 def save_model(model):
