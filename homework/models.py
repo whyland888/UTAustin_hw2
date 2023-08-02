@@ -6,7 +6,7 @@ class CNNClassifier(torch.nn.Module):
         def __init__(self, n_input, n_output, stride=1):
             super().__init__()
             self.net = torch.nn.Sequential(
-                torch.nn.Conv2d(n_input, n_output, kernel_size=3, padding=1, stride=stride)
+                torch.nn.Conv2d(n_input, n_output, kernel_size=3, padding=1, stride=stride),
                 torch.nn.ReLU(),
                 torch.nn.Conv2d(n_ouptut, n_output, kernel_size=3, padding=1)
                 torch.nn.ReLU()
