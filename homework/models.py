@@ -15,7 +15,7 @@ class CNNClassifier(torch.nn.Module):
     
 
     def forward(self, x):
-        return self.network(x)
+        return self.network(x).mean([1,2,3])
 
 
 def save_model(model):
