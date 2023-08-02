@@ -18,14 +18,14 @@ def test_logging(train_logger, valid_logger):
         torch.manual_seed(epoch)
         for iteration in range(20):
             dummy_train_loss = 0.9**(epoch+iteration/20.)
-            dummy_train_accuracy = epoch/10. + torch.randn(10)
+            dummy_train_accuracy = epoch/10. + torch.randn(5)
             #raise NotImplementedError('Log the training loss')
             train_logger.add_scalar('loss', dummy_train_loss, iteration)
         #raise NotImplementedError('Log the training accuracy')
         train_logger.add_scalar('accuracy', dummy_train_accuracy, epoch)
         torch.manual_seed(epoch)
         for iteration in range(10):
-            dummy_validation_accuracy = epoch / 10. + torch.randn(10)
+            dummy_validation_accuracy = epoch / 10. + torch.randn(5)
         #raise NotImplementedError('Log the validation accuracy')
         valid_logger.add_scalar('accuracy', dummy_validation_accuracy, epoch)
 
