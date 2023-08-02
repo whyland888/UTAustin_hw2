@@ -29,7 +29,7 @@ class CNNClassifier(torch.nn.Module):
 
     def forward(self, x):
         z = self.network(x) # compute features
-        z = z.mean(dim=[1, 2,3]) #global average pooling
+        z = z.mean(dim=[2,3]) #global average pooling
         return self.classifier(z)[:,0]
 
 
