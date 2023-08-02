@@ -12,6 +12,7 @@ class CNNClassifier(torch.nn.Module):
             c = l 
         L.append(torch.nn.Conv2d(c, l, kernel_size=1))
         self.network = torch.nn.Sequential(*L)
+        print("I'm working!")
 
     def forward(self, x):
         return self.network(x)
