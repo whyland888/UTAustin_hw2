@@ -13,7 +13,7 @@ class CNNClassifier(torch.nn.Module):
             )
 
         def forward(self, x):
-            return self.network(x).mean([1,2,3])
+            return self.net(x)
 
     def __init__(self, layers=[32,64,128], n_input_channels=3):
         super().__init__()
