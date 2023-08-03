@@ -15,27 +15,27 @@ def test_logging(train_logger, valid_logger):
     """
 
     # This is a strongly simplified training loop
-    global_step = 0
+    global_steps = 0
     for epoch in range(10):
         torch.manual_seed(epoch)
-        print(epoch)
+        #print(epoch)
         running_train_accuracy = []
         running_valid_accuracy = []
         for iteration in range(20):
             dummy_train_loss = 0.9**(epoch+iteration/20.)
-            dummy_train_accuracy = (epoch/10. + torch.randn(10)).mean().item()
             running_train_accuracy.append(dummy_train_accuracy)
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
-            global_step += 1
-        print(torch.tensor(running_train_accuracy).mean().item())
-        train_logger.add_scalar('accuracy', torch.tensor(running_train_accuracy).mean().item(), 1)
+            global_steps += 1
+        dummy_train_accuracy = epoch/10. + torch.randn(10)).mean().item()
+        train_logger.add_scalar('accuracy', dummy_train_accuracy, global_steps)
+        global_steps += 1
         
         torch.manual_seed(epoch)
         for iteration in range(10):
             dummy_validation_accuracy = (epoch / 10. + torch.randn(10)).mean().item()
             running_valid_accuracy.append(dummy_validation_accuracy)
-            global_step += 1
-        valid_logger.add_scalar('accuracy', torch.tensor(running_valid_accuracy).mean().item(), global_step)
+        valid_logger.add_scalar('accuracy', torch.tensor(running_valid_accuracy).mean().item(), global_steps)
+        global_steps += 1
 
 
 if __name__ == "__main__":
