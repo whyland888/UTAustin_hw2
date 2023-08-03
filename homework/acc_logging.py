@@ -18,6 +18,7 @@ def test_logging(train_logger, valid_logger):
     global_step = 0
     for epoch in range(10):
         torch.manual_seed(epoch)
+        print(epoch)
         running_train_accuracy = []
         running_valid_accuracy = []
         for iteration in range(20):
