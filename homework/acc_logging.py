@@ -1,6 +1,7 @@
 from os import path
 import torch
 import torch.utils.tensorboard as tb
+import numpy as np
 
 
 def test_logging(train_logger, valid_logger):
@@ -23,7 +24,7 @@ def test_logging(train_logger, valid_logger):
             dummy_train_accuracy = (epoch/10. + torch.randn(10)).mean().item()
             running_train_accuracy.append(dummy_train_accuracy)
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
-        print(running_train_accuracy.shape)
+        print(np.shape(running_train_accuracy))
         print(running_train_accuracy)
         train_logger.add_scalar('accuracy', torch.tensor(running_train_accuracy).mean().item(), epoch)
         torch.manual_seed(epoch)
