@@ -30,13 +30,16 @@ def test_logging(train_logger, valid_logger):
         overall_train_accuracy = torch.tensor(running_train_accuracy).mean().item()
         print(overall_train_accuracy)
         train_logger.add_scalar('accuracy', overall_train_accuracy, global_steps)
-        global_steps += 1
+        #global_steps += 1
         
         torch.manual_seed(epoch)
         for iteration in range(10):
             dummy_validation_accuracy = (epoch / 10. + torch.randn(10)).mean().item()
-            valid_logger.add_scalar('accuracy', dummy_validation_accuracy, global_steps)
+            running_valid_accuracy.append(dummy_validation_accuracy)
             global_steps += 1
+        overall_valid_accuracy = torch.tensor(running_valid_accuracy).mean().item()
+        valid_logger.add_scalar('accuracy', overall_validation_accuracy, global_steps)
+            
 
 
 if __name__ == "__main__":
