@@ -31,7 +31,7 @@ def test_logging(train_logger, valid_logger):
         print(overall_train_accuracy)
         train_logger.add_scalar('accuracy', overall_train_accuracy, global_steps)
         print(global_steps)
-        #global_steps += 1
+        global_steps += 1
         
         torch.manual_seed(epoch)
         for iteration in range(10):
