@@ -38,7 +38,7 @@ def test_logging(train_logger, valid_logger):
             running_valid_accuracy.append(dummy_validation_accuracy)
             global_steps += 1
         overall_valid_accuracy = torch.tensor(running_valid_accuracy).mean().item()
-        valid_logger.add_scalar('accuracy', overall_validation_accuracy, global_steps)
+        valid_logger.add_scalar('accuracy', overall_valid_accuracy, global_steps)
             
 
 
