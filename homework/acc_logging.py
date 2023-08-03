@@ -27,6 +27,7 @@ def test_logging(train_logger, valid_logger):
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
             global_step += 1
         train_logger.add_scalar('accuracy', torch.tensor(running_train_accuracy).mean().item(), global_step)
+        global_step = 0
         torch.manual_seed(epoch)
         for iteration in range(10):
             dummy_validation_accuracy = (epoch / 10. + torch.randn(10)).mean().item()
