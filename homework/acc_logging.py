@@ -26,6 +26,7 @@ def test_logging(train_logger, valid_logger):
             running_train_accuracy.append(dummy_train_accuracy)
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
             global_step += 1
+        print(torch.tensor(running_train_accuracy).mean().item())
         train_logger.add_scalar('accuracy', torch.tensor(running_train_accuracy).mean().item(), global_step)
         
         torch.manual_seed(epoch)
