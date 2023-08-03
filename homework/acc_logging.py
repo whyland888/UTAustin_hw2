@@ -22,6 +22,7 @@ def test_logging(train_logger, valid_logger):
             #raise NotImplementedError('Log the training loss')
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
             #raise NotImplementedError('Log the training accuracy')
+        print(dummy_train_accuracy)
         train_logger.add_scalar('accuracy', dummy_train_accuracy.mean(), epoch)
         torch.manual_seed(epoch)
         for iteration in range(10):
