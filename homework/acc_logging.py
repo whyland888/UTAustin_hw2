@@ -26,7 +26,7 @@ def test_logging(train_logger, valid_logger):
             running_train_accuracy.append(dummy_train_accuracy)
             train_logger.add_scalar('loss', dummy_train_loss, 20*epoch + iteration)
             global_steps += 1
-        dummy_train_accuracy = epoch/10. + torch.randn(10)).mean().item()
+        dummy_train_accuracy = epoch/10. + torch.randn(10).mean().item()
         train_logger.add_scalar('accuracy', dummy_train_accuracy, global_steps)
         global_steps += 1
         
