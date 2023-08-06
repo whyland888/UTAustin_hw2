@@ -1,7 +1,8 @@
 from PIL import Image
-
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
+import pandas as pd
+import os
 
 LABEL_NAMES = ['background', 'kart', 'pickup', 'nitro', 'bomb', 'projectile']
 
@@ -10,24 +11,30 @@ class SuperTuxDataset(Dataset):
     WARNING: Do not perform data normalization here. 
     """
     def __init__(self, dataset_path):
-        """
-        Your code here
-        Hint: Use your solution (or the master solution) to HW1
-        """
-        raise NotImplementedError('SuperTuxDataset.__init__')
+        self.path = dataset_path
+
+        # Images
+        image_files = pd.read_csv(os.path.join(dataset_path, 'labels.csv'))['file'].tolist()
+        self.image_paths = [os.path.join(dataset_path, x) for x in image_files]
+
+        # Labels
+        self.str_labels = pd.read_csv(os.path.join(dataset_path, 'labels.csv'))['label'].tolist()
+        label_dict = {"background": 0, "kart": 1, "pickup": 2, "nitro": 3, "bomb": 4, "projectile": 5}
+        self.int_labels = [label_dict[x] for x in self.str_labels]
 
     def __len__(self):
-        """
-        Your code here
-        """
-        raise NotImplementedError('SuperTuxDataset.__len__')
+        return len(self.int_labels)
 
     def __getitem__(self, idx):
-        """
-        Your code here
-        return a tuple: img, label
-        """
-        raise NotImplementedError('SuperTuxDataset.__getitem__')
+        label = self.int_labels[idx]
+
+        # Convert filepath to tensor
+        image_path = self.image_paths[idx]
+        image = Image.open(image_path).convert("RGB")
+        transform = transforms.Compose([transforms.ToTensor()])
+        image_tensor = transform(image)
+
+        return image_tensor, label
 
 
 def load_data(dataset_path, num_workers=0, batch_size=128):

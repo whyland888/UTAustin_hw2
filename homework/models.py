@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 
 
 class CNNClassifier(torch.nn.Module):
@@ -25,12 +26,15 @@ class CNNClassifier(torch.nn.Module):
             L.append(self.Block(c, l, stride=2))
             c = l 
         self.network = torch.nn.Sequential(*L)
-        self.classifier = torch.nn.Linear(c, l)
+        self.classifier = torch.nn.Linear(c, 6)
 
     def forward(self, x):
         z = self.network(x) # compute features
-        z = z.mean(dim=[2,3]) #global average pooling
-        return self.classifier(z)[:,0]
+        z = z.mean(dim=[2, 3]) #global average pooling
+        # print(self.classifier(z).shape)
+        # print((self.classifier(z)[:,0]).shape)
+        return self.classifier(z) #[:,0]
+
 
 
 def save_model(model):
