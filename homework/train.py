@@ -23,7 +23,8 @@ def train(args):
 
     model = CNNClassifier()
     criterion = torch.nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=learning_rate)
+    #optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.95)
+    optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
     # Training Loop
     epoch_accuracy = [0]
@@ -38,6 +39,7 @@ def train(args):
             train_logger.add_scalar('loss', loss)
             loss.backward()
             optimizer.step()
+            #print(loss)
 
             train_loss += loss.item()
         overall_train_accuracy = torch.tensor(running_train_accuracy).mean().item()
