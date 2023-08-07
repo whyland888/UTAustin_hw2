@@ -34,8 +34,6 @@ def train(args):
         for i, (images, labels) in enumerate(train_loader):
             optimizer.zero_grad()
             outputs = model(images)
-            # print(outputs)
-            # print(outputs.shape)
             loss = criterion(outputs, labels)
             train_logger.add_scalar('loss', loss)
             loss.backward()

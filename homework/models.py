@@ -16,7 +16,7 @@ class CNNClassifier(torch.nn.Module):
         def forward(self, x):
             return self.net(x)
 
-    def __init__(self, layers=[32,64,128], n_input_channels=3,n_classes=6):
+    def __init__(self, layers=[32,64,128], n_input_channels=3, n_classes=6):
         super().__init__()
         L = [torch.nn.Conv2d(n_input_channels, 32, kernel_size=7, padding=3, stride=2),
             torch.nn.ReLU(),
@@ -26,14 +26,14 @@ class CNNClassifier(torch.nn.Module):
             L.append(self.Block(c, l, stride=2))
             c = l 
         self.network = torch.nn.Sequential(*L)
-        self.classifier = torch.nn.Linear(c, 6)
+        self.classifier = torch.nn.Linear(128, n_classes)
 
     def forward(self, x):
         z = self.network(x) # compute features
         z = z.mean(dim=[2, 3]) #global average pooling
-        # print(self.classifier(z).shape)
-        # print((self.classifier(z)[:,0]).shape)
-        return self.classifier(z) #[:,0]
+        z = z.view(-1, 128) #[:,0]
+        #print(z.shape)
+        return self.classifier(z)
 
 
 

@@ -3,6 +3,7 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
 import pandas as pd
 import os
+import numpy as np
 
 LABEL_NAMES = ['background', 'kart', 'pickup', 'nitro', 'bomb', 'projectile']
 
@@ -39,6 +40,8 @@ class SuperTuxDataset(Dataset):
 
 def load_data(dataset_path, num_workers=0, batch_size=128):
     dataset = SuperTuxDataset(dataset_path)
+    #print(np.shape(dataset.int_labels))
+    #print(dataset.int_labels[99])
     return DataLoader(dataset, num_workers=num_workers, batch_size=batch_size, shuffle=True, drop_last=True)
 
 
