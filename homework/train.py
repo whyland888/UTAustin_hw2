@@ -31,7 +31,7 @@ def train(args):
     valid_loader = load_data(colab_valid_path)
 
     model = CNNClassifier().to(device)
-    print(model.device)
+    print(model.is_cuda)
     criterion = torch.nn.CrossEntropyLoss()
     #optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.95)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
@@ -43,7 +43,7 @@ def train(args):
         train_loss = 0.0
         for i, (images, labels) in enumerate(train_loader):
             images, labels = images.to(device), labels.to(device)
-            print(images.device, labels.device)
+            print(images.is_cuda, labels.is_cuda)
             optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
@@ -61,7 +61,7 @@ def train(args):
         with torch.no_grad():
             for images, labels in valid_loader:
                 images, labels = images.to(device), labels.to(device)
-                print(images.device, labels.device)
+                print(images.is_cuda, labels.is_cuda)
                 outputs = model(images)
                 val_loss += criterion(outputs, labels).item()
 
