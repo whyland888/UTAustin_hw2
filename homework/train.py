@@ -42,7 +42,6 @@ def train(args):
         train_loss = 0.0
         for i, (images, labels) in enumerate(train_loader):
             images, labels = images.to(device), labels.to(device)
-            print(images.is_cuda, labels.is_cuda)
             optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
@@ -60,7 +59,6 @@ def train(args):
         with torch.no_grad():
             for images, labels in valid_loader:
                 images, labels = images.to(device), labels.to(device)
-                print(images.is_cuda, labels.is_cuda)
                 outputs = model(images)
                 val_loss += criterion(outputs, labels).item()
 
