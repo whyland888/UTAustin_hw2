@@ -1,0 +1,61 @@
+Epoch [1/2], Loss: 1.7918, Learning Rate: 0.0010000000474974513
+Epoch [2/2], Loss: 1.7918, Learning Rate: 0.0010000000474974513
+Difference in loss between epochs: 0.001081228256225586
+Epoch [1/2], Loss: 1.7923, Learning Rate: 0.006000000052154064
+Epoch [2/2], Loss: 1.7919, Learning Rate: 0.006000000052154064
+Difference in loss between epochs: 0.03279590606689453
+Epoch [1/2], Loss: 1.7923, Learning Rate: 0.010999999940395355
+Epoch [2/2], Loss: 1.7920, Learning Rate: 0.010999999940395355
+Difference in loss between epochs: 0.028036832809448242
+Epoch [1/2], Loss: 1.7920, Learning Rate: 0.01600000075995922
+Epoch [2/2], Loss: 1.7920, Learning Rate: 0.01600000075995922
+Difference in loss between epochs: -0.00293731689453125
+Epoch [1/2], Loss: 1.7926, Learning Rate: 0.020999999716877937
+Epoch [2/2], Loss: 1.7920, Learning Rate: 0.020999999716877937
+Difference in loss between epochs: 0.051821351051330566
+Epoch [1/2], Loss: 1.7924, Learning Rate: 0.026000000536441803
+Epoch [2/2], Loss: 1.7922, Learning Rate: 0.026000000536441803
+Difference in loss between epochs: 0.018068552017211914
+Epoch [1/2], Loss: 1.7925, Learning Rate: 0.03099999949336052
+Epoch [2/2], Loss: 1.7922, Learning Rate: 0.03099999949336052
+Difference in loss between epochs: 0.023976802825927734
+Epoch [1/2], Loss: 1.7924, Learning Rate: 0.035999998450279236
+Epoch [2/2], Loss: 1.7921, Learning Rate: 0.035999998450279236
+Difference in loss between epochs: 0.023575425148010254
+Epoch [1/2], Loss: 1.7926, Learning Rate: 0.04100000113248825
+Epoch [2/2], Loss: 1.7931, Learning Rate: 0.04100000113248825
+Difference in loss between epochs: -0.0445786714553833
+Epoch [1/2], Loss: 1.7927, Learning Rate: 0.04600000008940697
+Epoch [2/2], Loss: 1.7926, Learning Rate: 0.04600000008940697
+Difference in loss between epochs: 0.009178400039672852
+Epoch [1/2], Loss: 1.7927, Learning Rate: 0.050999999046325684
+Epoch [2/2], Loss: 1.7928, Learning Rate: 0.050999999046325684
+Difference in loss between epochs: -0.006775259971618652
+Epoch [1/2], Loss: 1.7927, Learning Rate: 0.0560000017285347
+Epoch [2/2], Loss: 1.7931, Learning Rate: 0.0560000017285347
+Difference in loss between epochs: -0.0327380895614624
+Epoch [1/2], Loss: 1.7925, Learning Rate: 0.061000000685453415
+Epoch [2/2], Loss: 1.7922, Learning Rate: 0.061000000685453415
+Difference in loss between epochs: 0.02727508544921875
+Epoch [1/2], Loss: 1.7926, Learning Rate: 0.06599999964237213
+Epoch [2/2], Loss: 1.7924, Learning Rate: 0.06599999964237213
+Difference in loss between epochs: 0.02063584327697754
+Epoch [1/2], Loss: 1.7924, Learning Rate: 0.07100000232458115
+Epoch [2/2], Loss: 1.7888, Learning Rate: 0.07100000232458115
+Difference in loss between epochs: 0.2946971654891968
+Epoch [1/2], Loss: 1.7927, Learning Rate: 0.07599999755620956
+Epoch [2/2], Loss: 1.7763, Learning Rate: 0.07599999755620956
+Difference in loss between epochs: 1.344637155532837
+Epoch [1/2], Loss: 1.7923, Learning Rate: 0.08100000023841858
+Epoch [2/2], Loss: 1.7927, Learning Rate: 0.08100000023841858
+Difference in loss between epochs: -0.030132293701171875
+Epoch [1/2], Loss: 1.7928, Learning Rate: 0.0860000029206276
+Epoch [2/2], Loss: 1.8181, Learning Rate: 0.0860000029206276
+Difference in loss between epochs: -2.0718748569488525
+Epoch [1/2], Loss: 1.7929, Learning Rate: 0.09099999815225601
+Epoch [2/2], Loss: 1.7831, Learning Rate: 0.09099999815225601
+Difference in loss between epochs: 0.8039507865905762
+Epoch [1/2], Loss: 1.7933, Learning Rate: 0.09600000083446503
+Epoch [2/2], Loss: 1.7926, Learning Rate: 0.09600000083446503
+Difference in loss between epochs: 0.05597794055938721
+

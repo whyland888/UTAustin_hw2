@@ -4,6 +4,9 @@ import torch
 import torch.optim as optim
 import torch.utils.tensorboard as tb
 
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(device)
+
 
 def train(args):
     from os import path
@@ -21,29 +24,27 @@ def train(args):
     train_loader = load_data(r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/train")
     valid_loader = load_data(r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/valid")
 
-    model = CNNClassifier()
+    model = CNNClassifier().to(device)
     criterion = torch.nn.CrossEntropyLoss()
     #optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.95)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
     # Training Loop
-    epoch_accuracy = [0]
+    global_steps = 0
+    epoch_loss = [100]
     for epoch in range(num_epochs):
-        running_train_accuracy = []
-        running_valid_accuracy = []
         train_loss = 0.0
         for i, (images, labels) in enumerate(train_loader):
+            images, labels = images.to(device), labels.to(device)
             optimizer.zero_grad()
             outputs = model(images)
             loss = criterion(outputs, labels)
-            train_logger.add_scalar('loss', loss)
+            train_logger.add_scalar('train', loss, global_steps)
             loss.backward()
             optimizer.step()
-            #print(loss)
+            global_steps += 1
 
             train_loss += loss.item()
-        overall_train_accuracy = torch.tensor(running_train_accuracy).mean().item()
-        train_logger.add_scalar('accuracy', overall_train_accuracy)
         print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {train_loss / len(train_loader):.4f}")
 
         # Validation
@@ -51,19 +52,18 @@ def train(args):
         val_loss = 0.0
         with torch.no_grad():
             for images, labels in valid_loader:
+                images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
                 val_loss += criterion(outputs, labels).item()
 
-        overall_valid_accuracy = torch.tensor(running_valid_accuracy).mean().item()
-        valid_logger.add_scalar('accuracy', overall_valid_accuracy)
+        valid_logger.add_scalar('valid', val_loss/len(valid_loader), global_steps)
         print(f"Validation Loss: {val_loss / len(valid_loader):.4f}")
 
-        # Save if better than previous model
-        # if overall_valid_accuracy > epoch_accuracy[-1]:
-        #     save_model(model)
-        # epoch_accuracy.append(overall_valid_accuracy)
+        # Save if better than previous models
+        if val_loss/len(valid_loader) < sorted(epoch_loss)[0]:
+            save_model(model)
+        epoch_loss.append(val_loss/len(valid_loader))
 
-    save_model(model)
 
 
 if __name__ == '__main__':
