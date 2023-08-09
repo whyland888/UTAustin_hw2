@@ -31,7 +31,6 @@ def train(args):
     valid_loader = load_data(colab_valid_path)
 
     model = CNNClassifier().to(device)
-    print(model.is_cuda)
     criterion = torch.nn.CrossEntropyLoss()
     #optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.95)
     optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
