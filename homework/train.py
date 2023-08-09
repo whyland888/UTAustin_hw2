@@ -20,9 +20,15 @@ def train(args):
     learning_rate = args.lr
     num_epochs = args.n_epochs
 
+    # Paths to data
+    local_train_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/train"
+    local_valid_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/valid"
+    colab_train_path = r"UTAustin_hw2/data/train"
+    colab_valid_path = r"UTAustin_hw2/data/valid"
+
     # Data loading
-    train_loader = load_data(r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/train")
-    valid_loader = load_data(r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/valid")
+    train_loader = load_data(colab_train_path)
+    valid_loader = load_data(colab_valid_path)
 
     model = CNNClassifier().to(device)
     criterion = torch.nn.CrossEntropyLoss()
