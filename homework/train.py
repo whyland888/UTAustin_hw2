@@ -23,8 +23,8 @@ def train(args):
     # Paths to data
     local_train_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/train"
     local_valid_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/valid"
-    colab_train_path = r"UTAustin_hw2/data/train"
-    colab_valid_path = r"UTAustin_hw2/data/valid"
+    colab_train_path = r"/content/UTAustin_hw2/data/train"
+    colab_valid_path = r"/content/UTAustin_hw2/data/valid"
 
     # Data loading
     train_loader = load_data(colab_train_path)
