@@ -1,11 +1,10 @@
 from models import CNNClassifier, save_model
 from utils import accuracy, load_data
 import torch
+import torch_directml
 import torch.optim as optim
 import torch.utils.tensorboard as tb
-
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-print(device)
+import argparse
 
 
 def train(args):
@@ -16,24 +15,27 @@ def train(args):
         valid_logger = tb.SummaryWriter(path.join(args.log_dir, 'valid'))
 
     # Hyperparameters
-    batch_size = 128
+    batch_size = args.batch_size
     learning_rate = args.lr
     num_epochs = args.n_epochs
+    layers = args.layers
 
     # Paths to data
-    local_train_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/train"
-    local_valid_path = r"/home/bojangles/Desktop/UT_Austin_NLP/UTAustin_hw2/data/valid"
+    local_train_path = r"C:\Users\Will\OneDrive\Desktop\State Farm\UT Austin Deep Learning\UTAustin_hw2\data\train"
+    local_valid_path = r"C:\Users\Will\OneDrive\Desktop\State Farm\UT Austin Deep Learning\UTAustin_hw2\data\valid"
     colab_train_path = r"/content/UTAustin_hw2/data/train"
     colab_valid_path = r"/content/UTAustin_hw2/data/valid"
 
     # Data loading
-    train_loader = load_data(colab_train_path)
-    valid_loader = load_data(colab_valid_path)
+    train_loader = load_data(local_train_path, batch_size=batch_size)
+    valid_loader = load_data(local_valid_path, batch_size=batch_size)
 
-    model = CNNClassifier().to(device)
+    model = CNNClassifier(layers=layers).to(device)
     criterion = torch.nn.CrossEntropyLoss()
-    #optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.95)
-    optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
+    if args.optim == 'sgd':
+        optimizer = optim.SGD(model.parameters(), lr=learning_rate, momentum=.90)
+    elif args.optim == 'adamw':
+        optimizer = optim.AdamW(model.parameters(), lr=learning_rate)
 
     # Training Loop
     global_steps = 0
@@ -62,7 +64,7 @@ def train(args):
                 outputs = model(images)
                 val_loss += criterion(outputs, labels).item()
 
-        valid_logger.add_scalar('valid', val_loss/len(valid_loader), global_steps)
+        valid_logger.add_scalar('valid', val_loss/len(valid_loader), epoch)
         print(f"Validation Loss: {val_loss / len(valid_loader):.4f}")
 
         # Save if better than previous models
@@ -73,13 +75,31 @@ def train(args):
 
 
 if __name__ == '__main__':
-    import argparse
+
+    device = torch_directml.device()  # torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    print(device)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--log_dir')
     # Put custom arguments here
     parser.add_argument('--lr', type=float, required=True)
     parser.add_argument('--n_epochs', type=int, required=True)
-
+    parser.add_argument('--batch_size', type=int, required=True)
+    parser.add_argument(
+        '--optim',
+        choices=['sgd', 'adamw'],
+        help='Choose one of the available options: sgd, adamw'
+    )
+    parser.add_argument(
+        '--activation',
+        choices=['relu', 'leaky_relu'],
+        help='Choose one of the available options: relu, leaky_relu'
+    )
+    parser.add_argument(
+        '--layers',
+        nargs='+',
+        type=int,
+        help='A list of integer values'
+    )
     args = parser.parse_args()
     train(args)

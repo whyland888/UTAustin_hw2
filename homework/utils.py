@@ -38,10 +38,8 @@ class SuperTuxDataset(Dataset):
         return image_tensor, label
 
 
-def load_data(dataset_path, num_workers=0, batch_size=128):
+def load_data(dataset_path, num_workers=4, batch_size=128):
     dataset = SuperTuxDataset(dataset_path)
-    #print(np.shape(dataset.int_labels))
-    #print(dataset.int_labels[99])
     return DataLoader(dataset, num_workers=num_workers, batch_size=batch_size, shuffle=True, drop_last=True)
 
 
