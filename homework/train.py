@@ -76,7 +76,7 @@ def train(args):
 
 if __name__ == '__main__':
 
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu") #torch_directml.device()  
+    device = torch_directml.device() # torch.device("cuda:0" if torch.cuda.is_available() else "cpu")   
     print(device)
 
     parser = argparse.ArgumentParser()
