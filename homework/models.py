@@ -12,8 +12,10 @@ class CNNClassifier(torch.nn.Module):
                 activation_layer = torch.nn.LeakyReLU()
             self.net = torch.nn.Sequential(
                 torch.nn.Conv2d(n_input, n_output, kernel_size=3, padding=1, stride=stride),
+                torch.nn.BatchNorm2d(n_output),
                 activation_layer,
                 torch.nn.Conv2d(n_output, n_output, kernel_size=3, padding=1),
+                torch.nn.BatchNorm2d(n_output),
                 activation_layer
             )
 
@@ -25,7 +27,7 @@ class CNNClassifier(torch.nn.Module):
         if activation == 'relu':
             activation_layer = torch.nn.ReLU()
         elif activation == 'leaky_relu':
-            activation_layer = torch.nn.LeakyReLU()
+            activation_layer = torch.nn.LeakyReLU(negative_slope=.1) 
         L = [torch.nn.Conv2d(n_input_channels, 32, kernel_size=7, padding=3, stride=2),
              torch.nn.BatchNorm2d(32),
             activation_layer,
