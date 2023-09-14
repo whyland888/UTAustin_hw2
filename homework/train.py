@@ -58,14 +58,23 @@ def train(args):
         # Validation
         model.eval()
         val_loss = 0.0
+        total_correct = 0.0
+        total_samples = 0.0
         with torch.no_grad():
             for images, labels in valid_loader:
                 images, labels = images.to(device), labels.to(device)
                 outputs = model(images)
                 val_loss += criterion(outputs, labels).item()
 
+                # Get accuracy
+                _, predicted = torch.max(outputs, 1)
+                total_samples += labels.size(0)
+                total_correct += (predicted == labels).sum().item()
+
+
         valid_logger.add_scalar('valid', val_loss/len(valid_loader), epoch)
         print(f"Validation Loss: {val_loss / len(valid_loader):.4f}")
+        print(f"Accuracy: {total_correct/total_samples}")
 
         # Save if better than previous models
         if val_loss/len(valid_loader) < sorted(epoch_loss)[0]:
